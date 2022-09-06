@@ -26,22 +26,22 @@ module.exports = {
 const row = new discord.MessageActionRow()
     .addComponents([
 new discord.MessageButton()
-            .setCustomId('a1')
+            .setCustomId('verify')
             .setLabel('Verificar')//nome do seu botão
             .setStyle("PRIMARY"),
             
 new discord.MessageButton()
-            .setCustomId('a2')
+            .setCustomId('promote')
             .setLabel('🔔Promoçoes')//nome do seu botão
             .setStyle("PRIMARY"),
             
         new discord.MessageButton()
-            .setCustomId('a3')
+            .setCustomId('update')
             .setLabel('🔔Updates')//nome do seu botão
             .setStyle("PRIMARY"),
             
 new discord.MessageButton()
-            .setCustomId('a4')
+            .setCustomId('giveaway')
             .setLabel('🔔Giveaways')//nome do seu botão
             .setStyle("PRIMARY"),
 ])
@@ -49,29 +49,16 @@ new discord.MessageButton()
 
  message.channel.send({ embeds: [embed], components: [row]})
       
-    const filtro = m => m.customId === "a1" && m.user.id === message.author.id;
-    const collector = message.channel.createMessageComponentCollector({filtro, time: 0 });
+    const collector = message.channel.createMessageComponentCollector({ time: 0 });
 
     collector.on("collect", m => {
-        if(m.customId === "a1") {
+        if(m.customId === "verify") {
             
              const role = message.guild.roles.cache.get('1015986492725788718');//coloque o id do cargo aqui
-
-            if(m.member.roles.cache?.has('1015986492725788718')){
-
-                m.member.roles.remove('1015986492725788718')
-
-                m.reply({ content: `Cargos ${role} removido`, ephemeral: true });
-
-            } else {
-
-                m.member.roles.add('1015986492725788718')
-
-                m.reply({ content: `Está Verificado!!!`, ephemeral: true })
+             m.member.roles.add(role)
+             m.send("Estás Verificado!")
 
             }
-
-        }
 
             if(m.customId === 'a2'){
 
